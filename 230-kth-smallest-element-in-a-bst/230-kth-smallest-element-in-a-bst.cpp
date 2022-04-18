@@ -17,9 +17,21 @@ public:
         arr.push_back(root->val);
         helper(root->right,arr);
     }
+    void helper2(TreeNode* root , int &ans,int &k){
+        if(!root)return;
+        helper2(root->left,ans,k);
+        k--;
+        if(k==0){
+            ans = root->val ;
+        }
+        helper2(root->right,ans,k);
+    }
     int kthSmallest(TreeNode* root, int k) {
         vector<int>arr ;
-        helper(root,arr);
+        int ans = 0 ;
+        // helper(root,arr);
+        helper2(root,ans,k);
+        return ans;
         // sort(arr.begin(),arr.end());
         return arr[k-1];
     }
