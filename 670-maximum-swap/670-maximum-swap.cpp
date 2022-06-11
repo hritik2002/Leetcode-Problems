@@ -14,7 +14,7 @@ public:
             if(_max==s[i+1]-48)_maxI=i+1;
         }
         if(_maxI==-1)return num;
-        int _min = INT_MAX , _minI = _maxI-1;
+        int  _minI = _maxI-1;
         for(int i=_maxI-1;i>=0;i--){
             
             if(s[i]-48<_max){
