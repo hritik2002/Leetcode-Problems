@@ -1,20 +1,27 @@
 class Solution {
 public:
     int minOperations(vector<int>& nums, int x) {
-        int sum = accumulate(begin(nums), end(nums), 0);
-    int l = 0, r = 0, res = INT_MAX, sz = nums.size();
-    while (l <= r)
-        if (sum >= x) {
-            if (sum == x)
-                res = min(res, l + sz - r);
-            if (r < sz)
-                sum -= nums[r++];
-            else
-                break;
+        long long sum = accumulate(begin(nums), end(nums), 0);
+        long long target = sum -x ;
+        if(target==0)return nums.size();
+        else if(target<0)return -1;
+        int n = nums.size();
+        sum = 0;
+        int left= 0 , res = -1;
+        for(int i=0 ;i<nums.size();i++){
+            sum += nums[i];
+            while(sum>target){
+                sum -= nums[left++];
+                if(left>nums.size())
+                     break;
+            }
+            
+            if(sum==target){
+                cout<<sum<<endl;
+                res = max(res,i-left+1);
+            }
         }
-        else
-            sum += nums[l++];
-    return res == INT_MAX ? -1 : res;
-        
+      
+        return res==-1?res:n-res;
     }
 };
