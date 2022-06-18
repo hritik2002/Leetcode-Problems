@@ -5,13 +5,10 @@ public:
         if(!st.count(sub)){
             st.insert(sub);
             res.push_back(sub);
-            // reverse(sub.begin(),sub.end());
-            // st.insert(sub);
-            // reverse(sub.begin(),sub.end());
         }
         for(int i=ind;i<nums.size();i++){
             if(nums[i]==nums[ind] && i!=ind)continue;
-            helper(nums,res,sub,i+1);
+            // helper(nums,res,sub,i+1);
             sub.push_back(nums[i]);
             helper(nums,res,sub,i+1);
             sub.pop_back();
