@@ -1,14 +1,13 @@
 class Solution {
 public:
-    set<vector<int>>st;
+   
     void helper(vector<int>nums,vector<vector<int>>&res,vector<int>sub,int ind){
-        if(!st.count(sub)){
-            st.insert(sub);
             res.push_back(sub);
-        }
+         set<int>st;
         for(int i=ind;i<nums.size();i++){
             if(nums[i]==nums[ind] && i!=ind)continue;
-            // helper(nums,res,sub,i+1);
+            if(st.count(nums[i])){continue;}
+            st.insert(nums[i]);
             sub.push_back(nums[i]);
             helper(nums,res,sub,i+1);
             sub.pop_back();
