@@ -14,10 +14,9 @@ public:
             } 
             i++;
         }
-        for(int i=0;i<n;i++)cout<<nums[i]<<" ";
         for(int i=0;i<n;i++){
             if( i+1!=nums[i])return i+1;
         }
-        return _max+1;
+        return n+1;
     }
 };
