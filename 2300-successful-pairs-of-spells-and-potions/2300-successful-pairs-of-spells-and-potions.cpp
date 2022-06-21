@@ -2,19 +2,17 @@ class Solution {
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
         sort(potions.begin(),potions.end());
-        int m =potions.size() ;
-        int n = spells.size();
+        int n = spells.size() , m = potions.size();
         vector<int>ans;
-        for(int i=0 ; i<n ;i++){
+        for(int i=0;i<n;i++){
             int num = spells[i];
-            int l = 0 , h = m-1;
-            int res = m ;
+            int l=0,h=m-1, res = m ;
             while(l<=h){
                 int mid = l + (h-l)/2;
-                if(potions[mid]*1L*num>=success){
-                    h = mid - 1 ;
+                if(1L*num*potions[mid]>=success){
                     res = mid ;
-                }else l = mid + 1;
+                    h = mid-1;
+                }else l = mid+1;
             }
             ans.push_back(m-res);
         }
