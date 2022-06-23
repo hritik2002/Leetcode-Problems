@@ -9,17 +9,18 @@ public:
             distance[i] = dist ;
         }
         vector<vector<int>>ans;
-        vector<pair<double,vector<int>>>dist(n);
+        vector<pair<double,int>>dist(n);
         for(int i=0;i<n;i++){
-            pair<double,vector<int>>temp ;
+            pair<double,int>temp ;
             temp.first = distance[i];
-            temp.second = points[i];
+            temp.second = i ;
             dist[i] = temp ;
         }
         sort(dist.begin(),dist.end());
         int i = 0 ;
         while(k--){
-            ans.push_back(dist[i++].second);
+            ans.push_back(points[dist[i].second]);
+            i++;
         }
         return ans;
     }
