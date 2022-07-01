@@ -8,9 +8,15 @@ public:
                 sum += value ;
             }else sum += arr[i];
         }
-        return sum;
+        return sum;                
     }
     int findBestValue(vector<int>& arr, int target) {
+        /*
+            Logic : 
+                > This is monotonic increasing function.
+                > After one point the difference of the next element from target starts increasing.
+                > We have to find the minimum value of that element from which the function satisfies                   the condition.
+        */
         int low = 0, high = 100000;
         int ans = INT_MAX ;
         while(low<=high){
