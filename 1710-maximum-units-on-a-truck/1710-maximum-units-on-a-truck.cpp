@@ -10,10 +10,15 @@ public:
         sort(arr.begin(),arr.end());
         int ans = 0 ;
         for(int i=n-1;i>=0 ;i--){
-            while(truckSize>0 &&arr[i][1]-- ){
-                ans += arr[i][0];
-                truckSize--;
+            if(arr[i][1]>=truckSize){
+                ans += arr[i][0]*truckSize;
+                truckSize = 0 ;
+            }else{
+                ans += arr[i][0]*arr[i][1];
+                truckSize -= arr[i][1];
+                arr[i][1] = 0 ;
             }
+            if(truckSize==0)break;
         }
         return ans;
     }
