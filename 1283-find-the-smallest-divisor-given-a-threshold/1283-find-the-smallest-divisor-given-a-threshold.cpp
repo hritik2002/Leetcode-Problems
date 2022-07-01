@@ -17,7 +17,7 @@ public:
                 > Find the minimum value for which the condition is satisfied.
                 > Condition : Sum of the division(as mentioned in question) should be less than threshold.
         */
-        int low = 1, high = 1000000;
+        int low = 1, high = max(threshold,*max_element(nums.begin(),nums.end()));
         int ans = high ;
         while(low<=high){
             int mid = low + (high-low)/2;
