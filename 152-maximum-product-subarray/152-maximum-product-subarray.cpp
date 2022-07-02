@@ -8,6 +8,7 @@ public:
             _max = max(nums[i],max(_max*nums[i],_min*nums[i]));
             _min = min(nums[i],min(_min*nums[i],temp*nums[i]));
             res = max(_max,res);
+            if(_max<=0)_max = 1 ;
         }
         return res;
         
