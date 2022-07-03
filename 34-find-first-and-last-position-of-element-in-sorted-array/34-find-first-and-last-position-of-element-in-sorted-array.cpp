@@ -25,14 +25,11 @@ public:
             if(nums[mid]==target){
                 first = min(first , mid);
                 second = max(second , mid );
-                helper(nums,low,mid-1,target,first,second);   // left
-                helper(nums,mid+1,high,target,first,second);  // right
-            }else if(nums[mid]<target){
-                helper(nums,mid+1,high,target,first,second);  // right
-            }else{
-                helper(nums,low,mid-1,target,first,second);   // left
-                
             }
+            
+            helper(nums,low,mid-1,target,first,second);   // left
+            helper(nums,mid+1,high,target,first,second);  // right
+      
         }
    }
         
