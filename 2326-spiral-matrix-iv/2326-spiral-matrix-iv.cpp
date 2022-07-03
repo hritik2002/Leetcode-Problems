@@ -13,7 +13,7 @@ public:
     vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
         int row_start = 0, col_start = 0, row_end = m, col_end = n;
         vector<vector<int>>mat(m,vector<int>(n,-1));
-        while(head){
+        while(head && m>0 && n>0){
             int i = row_end-m, j = col_end-n ;
             while(head && j<n){
                 mat[i][j] = head->val;
