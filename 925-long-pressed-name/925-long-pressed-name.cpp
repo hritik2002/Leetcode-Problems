@@ -7,13 +7,11 @@ public:
             if(i<name_len && name[i]==typed[j]){
                 i++;
                 j++;
-            }else{
-                if(i<=name_len && i>0 && name[i-1] == typed[j]);
-                else{
-                    return false;
-                }
-                j++;
             }
+            else if(i<=name_len && i>0 && name[i-1] == typed[j])
+                j++;
+            else 
+                return false;
         }
         if(i != name_len)return false;
         return true;
