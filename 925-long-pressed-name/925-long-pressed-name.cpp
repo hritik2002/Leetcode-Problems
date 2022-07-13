@@ -6,14 +6,9 @@ public:
         while(i<name_len && j<typed_len){
             if(name[i]==typed[j]){
                 i++;
-                j++;
-            }else{
-                if(i>0 && name[i-1] == typed[j]);
-                else{
-                    return false;
-                }
-                j++;
-            }
+            }else if(i<=0 || (i>0 && name[i-1] != typed[j]))
+                return false;
+            j++;
         }
         if(i != name_len)return false;
         while(j<typed_len){
