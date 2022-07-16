@@ -2,35 +2,40 @@ class Solution {
 public:
    
     vector<int> searchRange(vector<int>& nums, int target) {
-        vector<int> ans ;
-        int first = INT_MAX , second = INT_MIN ;
-        ans.push_back(-1);
-        ans.push_back(-1);
+        int min_index = INT_MAX, max_index = INT_MIN,
+            low = 0, high = nums.size() - 1;
         
-        helper(nums,0,nums.size()-1,target,first,second);
+        findIndex(nums, target, min_index, max_index, low, high);
         
-        if(first!=INT_MAX){
-            ans[0] = first;
+        vector<int>ans ;
+        
+        if(min_index == INT_MAX){
+            ans.push_back(-1);
+            ans.push_back(-1);
+            return ans;
         }
-        if(second!=INT_MIN){
-            ans[1] = second;
-        }
+        
+        ans.push_back(min_index);
+        ans.push_back(max_index);
         
         return ans;
     }
-     void helper(vector<int>&nums,int low , int high ,int target , int &first , int &second ){
-        if(low <= high){
-            int mid ;
-            mid = low + (high-low)/2 ;
-            if(nums[mid]==target){
-                first = min(first , mid);
-                second = max(second , mid );
-            }
-            
-            helper(nums,low,mid-1,target,first,second);   // left
-            helper(nums,mid+1,high,target,first,second);  // right
-      
+    
+    void findIndex(vector<int>& nums, int target, int &min_index, int &max_index, int low, int high){
+        if(low>high){
+            return ;
         }
-   }
+        int mid = low + (high - low)/2 ;
+        if(nums[mid] == target){
+            min_index = min(min_index, mid);
+            max_index = max(max_index, mid);
+            findIndex(nums, target, min_index, max_index, low, mid - 1);
+            findIndex(nums, target, min_index, max_index, mid + 1, high);
+        }else if(nums[mid] < target){
+            findIndex(nums, target, min_index, max_index, mid + 1, high);
+        }else{
+            findIndex(nums, target, min_index, max_index, low, mid - 1);
+        }
         
+    }
 };
