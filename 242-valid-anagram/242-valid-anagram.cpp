@@ -1,16 +1,16 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        map<int,int> hm;
+        map<char,int> count;
         
         for(auto letter : s){
-            hm[letter]++;
+            count[letter]++;
         }
         for(auto letter : t){
-            hm[letter]--;
+            count[letter]--;
         }
         
-        for(auto __map : hm){
+        for(auto __map : count){
             if(__map.second != 0)return false;
         }
         
