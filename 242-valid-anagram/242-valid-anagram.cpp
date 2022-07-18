@@ -1,17 +1,17 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        map<char,int> count;
+        vector<int> arr(26,0);
         
         for(auto letter : s){
-            count[letter]++;
+            arr[letter - 'a']++;
         }
         for(auto letter : t){
-            count[letter]--;
+            arr[letter - 'a']--;
         }
         
-        for(auto __map : count){
-            if(__map.second != 0)return false;
+        for(int i=0 ; i < 26; i++){
+            if(arr[i] != 0)return false;
         }
         
         return true;
