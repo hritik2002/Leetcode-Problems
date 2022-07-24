@@ -1,20 +1,50 @@
 class Solution {
 public:
-    int largestRectangleArea(vector<int>& height) {
-		int n = height.size(), area = 0, h, l;
-		stack<int> indexes;
+    int largestRectangleArea(vector<int>& heights) {
+        /*
+            Find first smallest element from left and right
+            calculate area between left and right and store the max.
+        */
+        int n = heights.size();
+        stack<int> stck, stck1;
+        vector<int> smallerLeft(n, 0);
+        vector<int> smallerRight(n, 0);
         
-		for (int i = 0; i <= n; i++) {
-			while (i == n || (!indexes.empty() && height[indexes.top()] > height[i])) {
-				if (i == n && indexes.empty()) h = 0, i++;
-				else h = height[indexes.top()], indexes.pop();			
-				l = indexes.empty() ? -1 : indexes.top();
-				area = max(area, h * (i - l - 1));
-			}
-			indexes.push(i);
-		}
+        for(int i = 0; i < n; i++){
+            while(stck.size() > 0 && heights[stck.top()] >= heights[i]){
+                stck.pop();
+            }
+            if(stck.size() > 0){
+                smallerLeft[i] = stck.top() + 1;
+            }else{
+                smallerLeft[i] = 0;
+            }
+            
+            stck.push(i);
+        }
         
-		return area;
-	}
-
+        // while(stck.size() > 0)stck.pop();
+        
+        for(int i = n - 1; i >= 0; i--){
+            while(stck1.size() > 0 && heights[stck1.top()] >= heights[i]){
+                stck1.pop();
+            }
+            if(stck1.size() > 0){
+                smallerRight[i] = stck1.top() - 1;
+            }else{
+                smallerRight[i] = n - 1;
+            }
+            
+            stck1.push(i);
+        }
+        
+        int ans = 0;
+        
+        for(int i = 0; i < n; i++){
+            int area = (smallerRight[i] - smallerLeft[i] + 1)*heights[i];
+            ans = max(ans, area);
+        }
+        
+        return ans;
+    }
 };
