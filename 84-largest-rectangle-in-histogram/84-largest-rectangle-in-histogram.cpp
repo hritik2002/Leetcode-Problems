@@ -6,7 +6,7 @@ public:
             calculate area between left and right and store the max.
         */
         int n = heights.size();
-        stack<int> stck;
+        stack<int> stck, stck1;
         vector<int> smallerLeft(n, 0);
         vector<int> smallerRight(n, 0);
         
@@ -23,19 +23,19 @@ public:
             stck.push(i);
         }
         
-        while(stck.size() > 0)stck.pop();
+        // while(stck.size() > 0)stck.pop();
         
         for(int i = n - 1; i >= 0; i--){
-            while(stck.size() > 0 && heights[stck.top()] >= heights[i]){
-                stck.pop();
+            while(stck1.size() > 0 && heights[stck1.top()] >= heights[i]){
+                stck1.pop();
             }
-            if(stck.size() > 0){
-                smallerRight[i] = stck.top() - 1;
+            if(stck1.size() > 0){
+                smallerRight[i] = stck1.top() - 1;
             }else{
                 smallerRight[i] = n - 1;
             }
             
-            stck.push(i);
+            stck1.push(i);
         }
         
         int ans = 0;
