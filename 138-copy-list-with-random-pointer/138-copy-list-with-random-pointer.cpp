@@ -19,32 +19,47 @@ public:
     Node* copyRandomList(Node* head) {
         if(head == NULL)return head;
         
-        Node* init_head = head;
-        map<Node*, Node*> node_to_node;
+        Node* iterator = head, *next = NULL;
         
-        Node* newHead  = new Node(head->val);
-        node_to_node[head] = newHead;
-        node_to_node[NULL] = NULL;
-        
-        Node* tail = newHead;
-        head = head->next;
-        
-        while(head){
-            tail->next = new Node(head->val);
-            node_to_node[head] = tail->next;
-            head = head->next;
-            tail = tail->next;
+        while(iterator != NULL){
+            next = iterator->next;
+            Node* newNode = new Node(iterator->val);
+            iterator->next = newNode;
+            newNode->next = next;
+            iterator = next;
         }
         
-        tail = newHead;
-        head = init_head;
+        iterator = head;
         
-        while(tail){
-            tail->random = node_to_node[head->random];
-            tail = tail->next;
-            head = head->next;
+        while(iterator != NULL){
+            next = iterator->next;
+            
+            if(iterator->random)
+                next->random = iterator->random->next;
+            
+            iterator = next->next;
         }
         
-        return newHead;
+        iterator = head;
+        Node* copy_head = NULL, *copy_tail = NULL;
+        
+        while(iterator != NULL){
+            next = iterator->next;
+            
+            if(copy_head == NULL){
+                copy_head = next;
+                copy_tail = next;
+            
+            }
+            else {
+                copy_tail->next = next;
+                copy_tail = next;
+            }
+            
+            iterator->next = next->next;
+            iterator = next->next;
+        }
+        
+        return copy_head;
     }
 };
