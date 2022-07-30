@@ -25,8 +25,8 @@ public:
         map<Node*, Node*> node_to_node;
         
         Node* newHead  = new Node(head->val);
-        int_to_node[index] = head->random;
-        index++;
+        // int_to_node[index] = head->random;
+        // index++;
         node_to_node[head] = newHead;
         node_to_node[NULL] = NULL;
         
@@ -35,21 +35,23 @@ public:
         
         while(head){
             tail->next = new Node(head->val);
-            int_to_node[index] = head->random;
+            // int_to_node[index] = head->random;
             node_to_node[head] = tail->next;
-            index++;
+            // index++;
             
             head = head->next;
             tail = tail->next;
         }
         
         tail = newHead;
+        head = init_head;
         index = 0;
         
         while(tail){
-            tail->random = node_to_node[int_to_node[index]];
+            tail->random = node_to_node[head->random];
             tail = tail->next;
-            index++;
+            head = head->next;
+            // index++;
         }
         
         return newHead;
