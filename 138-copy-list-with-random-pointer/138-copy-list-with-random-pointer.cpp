@@ -44,7 +44,6 @@ public:
         }
         
         tail = newHead;
-        head = init_head;
         index = 0;
         
         while(tail){
