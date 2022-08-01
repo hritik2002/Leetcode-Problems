@@ -22,7 +22,9 @@ public:
                 head->next = flatten(head->child);
                 head->next->prev = head;
                 head->child = NULL;
+                
                 while(head && head->next != NULL)head = head->next;
+                
                 head->next = next;
                 
                 if(next)
