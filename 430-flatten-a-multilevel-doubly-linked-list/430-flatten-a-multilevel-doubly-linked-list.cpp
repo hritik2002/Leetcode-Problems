@@ -24,8 +24,9 @@ public:
                 head->child = NULL;
                 while(head && head->next != NULL)head = head->next;
                 head->next = next;
+                
                 if(next)
-                next->prev = head;
+                    next->prev = head;
                 
             }
             
