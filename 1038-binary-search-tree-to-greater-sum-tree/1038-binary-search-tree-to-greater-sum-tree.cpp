@@ -11,14 +11,13 @@
  */
 class Solution {
 public:
-    int getBstToGst(TreeNode* root, int &sum){
-        if(root == NULL)return sum;
+    void getBstToGst(TreeNode* root, int &sum){
+        if(root == NULL)return;
         
-        int right = getBstToGst(root->right, sum);
-        root->val += right;
-        int left = getBstToGst(root->left, root->val);
-        
-        return left;
+        getBstToGst(root->right, sum);
+        sum += root->val;
+        root->val = sum;
+        getBstToGst(root->left, sum);
     }
     TreeNode* bstToGst(TreeNode* root) {
         if(root == NULL)return root;
