@@ -11,16 +11,17 @@
  */
 class Solution {
 public:
-    map<int, int> mp;
-    
+    int sum = 0, maxLevel = 0;    
     void dfs(TreeNode* root, int level) {
         if(root == NULL) {
             return;
         }
-        if(root->left == NULL && root->right == NULL) {
-            mp[level] += root->val;
-            
-            return;
+        if(level > maxLevel) {
+            maxLevel = level;
+            sum = 0;
+        }
+        if(level == maxLevel) {
+            sum += root->val;
         }
         
         dfs(root->left, level + 1);
@@ -30,14 +31,7 @@ public:
     }
     int deepestLeavesSum(TreeNode* root) {
         dfs(root, 0);
-        int maxVal = 0;
         
-        for(auto x : mp) {
-            cout<<x.first<<" "<<x.second<<endl;
-            
-            maxVal = x.second;
-        }
-        
-        return maxVal;
+        return sum;
     }
 };
