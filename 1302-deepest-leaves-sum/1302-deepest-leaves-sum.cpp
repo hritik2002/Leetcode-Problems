@@ -20,7 +20,7 @@ public:
             maxLevel = level;
             sum = 0;
         }
-        if(level == maxLevel) {
+        if(level == maxLevel && root->left == NULL && root->right == NULL) {
             sum += root->val;
         }
         
