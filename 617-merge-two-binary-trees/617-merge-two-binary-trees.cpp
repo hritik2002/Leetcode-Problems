@@ -15,24 +15,17 @@ public:
         if(root1 == NULL && root2 == NULL) {
             return NULL;
         }
-        TreeNode* newNode = NULL;
         if(root1 == NULL) {
-            newNode = new TreeNode(root2->val);
-            newNode->left = mergeTrees(root1, root2->left);
-            newNode->right = mergeTrees(root1, root2->right);
-            
-        }else if(root2 == NULL) {
-            newNode = new TreeNode(root1->val);
-            newNode->left = mergeTrees(root1->left, root2);
-            newNode->right = mergeTrees(root1->right, root2);
-            
-        }else {
-            newNode = new TreeNode(root1->val + root2->val);
-            newNode->left = mergeTrees(root1->left, root2->left);
-            newNode->right = mergeTrees(root1->right, root2->right);
-            
+            return root2;
+        }
+        if(root2 == NULL) {
+            return root1;
         }
         
-        return newNode;
+        root1->val += root2->val;
+        root1->left = mergeTrees(root1->left, root2->left);
+        root1->right = mergeTrees(root1->right, root2->right);
+        
+        return root1;
     }
 };
