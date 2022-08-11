@@ -11,32 +11,36 @@
  */
 class Solution {
 public:
-    map<int, int> hm;
-    int maxCount = 0;
-    void dfs(TreeNode* root) {
-        if(root == NULL) {
-            return;
-        }
-        
-        hm[root->val]++;
-        maxCount = max(maxCount, hm[root->val]);
-        
-        dfs(root->left);
-        dfs(root->right);
-        
-        return;
+    int maxFreq = 0, currFreq = 0, precursor = INT_MIN;
+    vector<int> res;
+
+    vector<int> findMode(TreeNode *root)
+    {
+        inorderTraversal(root);
+        return res;
     }
-    vector<int> findMode(TreeNode* root) {
-        vector<int> ans;
+
+    void inorderTraversal(TreeNode *root)
+    {
+        if (root == NULL) return; // Stop condition
         
-        dfs(root);
+        inorderTraversal(root->left); // Traverse left subtree
         
-        for(auto node_count : hm) {
-            if(node_count.second == maxCount) {
-                ans.push_back(node_count.first);
-            }
+        if (precursor == root->val) currFreq++;
+        else currFreq = 1;
+        
+        if (currFreq > maxFreq)
+        {// Current node value has higher frequency than any previous visited
+            res.clear();
+            maxFreq = currFreq;
+            res.push_back(root->val);
+        }
+        else if (currFreq == maxFreq)
+        {// Current node value has a frequency equal to the highest of previous visited
+            res.push_back(root->val);
         }
         
-        return ans;
+        precursor = root->val; // Update the precursor
+        inorderTraversal(root->right); // Traverse right subtree
     }
 };
