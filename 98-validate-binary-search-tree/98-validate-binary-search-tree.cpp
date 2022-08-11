@@ -11,21 +11,23 @@
  */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root, long long int minValue = -9223372036854775807, long long int maxValue = 9223372036854775807) {
-        if (root == NULL) {
+    long long prev = -9223372036854775807;
+    
+    bool isValidBST(TreeNode* root) {
+        if(root == NULL) {
             return true;
         }
         
-        if (root->val >= maxValue) {
+        bool left = isValidBST(root->left);
+        
+        if(prev >= root->val || left == false){
             return false;
-        }
-        if (root->val <= minValue) {
-            return false;
+        }else {
+            prev = root->val;
         }
         
-        bool leftSubTree = isValidBST (root->left, minValue, root->val);
-        bool RightSubTree = isValidBST (root->right, root->val, maxValue);
-
-        return leftSubTree && RightSubTree;
+        bool right = isValidBST(root->right);
+        
+        return left && right;
     }
 };
