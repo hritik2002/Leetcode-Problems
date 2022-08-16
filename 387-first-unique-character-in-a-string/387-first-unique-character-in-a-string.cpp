@@ -1,15 +1,15 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        map<int, int> mp;
+        vector<int> count(256, 0);
         int n = s.length();
         
         for(int i = 0; i < n; i++) {
-            mp[s[i]]++;
+            count[s[i]]++;
         }
         
         for(int i = 0; i < n; i++) {
-            if(mp[s[i]] == 1) {
+            if(count[s[i]] == 1) {
                 return i;
             }
         }
