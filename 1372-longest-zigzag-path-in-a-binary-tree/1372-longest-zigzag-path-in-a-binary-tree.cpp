@@ -12,31 +12,26 @@
 class Solution {
 public:
     int ans = 0;
-    void dfs(TreeNode* root, string parentDirection, int score) {
-        if (root == NULL) {
-            return;
-        }
+    void solve(TreeNode* root , int score, int dir){
+        if(root == NULL) return ;
         
         ans = max(ans, score);
         
-        if (parentDirection == "R") {
-            dfs(root->left, "L", score + 1);        // go left with score + 1
-            dfs(root->left, "R", 1);               // go right with score = 1
-        }else {
-            dfs(root->right, "R", score + 1);       // go right with score + 1
-            dfs(root->right, "L", 1);                // go left with score = 1
+        if(dir == 0) {
+            solve(root->right, score + 1, 1);
+            solve(root->left, 1, 0);
+        }
+        else {
+            solve(root->left, score + 1, 0);
+            solve(root->right, 1, 1);
         }
         
-        return;
     }
     int longestZigZag(TreeNode* root) {
-        if(root == NULL) {
-            return 0;
-        }
         
-        dfs(root, "R", 1);
-        dfs(root, "L", 1);
+           solve(root->left, 1, 0);
+           solve(root->right, 1, 1);
         
-        return ans - 1;
+           return ans;
     }
 };
