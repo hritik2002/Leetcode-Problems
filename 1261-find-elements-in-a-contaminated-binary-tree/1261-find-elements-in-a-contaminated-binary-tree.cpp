@@ -11,6 +11,7 @@
  */
 class FindElements {
 public:
+    set<int> store;
     TreeNode* __root;
     FindElements(TreeNode* root) {
         __root = root;
@@ -19,7 +20,7 @@ public:
     }
     
     bool find(int target) {
-        return isPresent(__root, target);
+        return store.count(target);
     }
     void recoverTree(TreeNode* root, int parentValue) {
         if(root == NULL) {
@@ -27,22 +28,12 @@ public:
         }
         
         root->val = parentValue;
+        store.insert(root->val);
         
         recoverTree(root->left, root->val*2 + 1);
         recoverTree(root->right, root->val*2 + 2);
         
         return;
-    }
-    bool isPresent(TreeNode* root, int target) {
-        if(root == NULL) {
-            return false;
-        }
-        
-        if(root->val == target) {
-            return true;
-        }
-        
-        return isPresent(root->left, target) || isPresent(root->right, target);
     }
 };
 
