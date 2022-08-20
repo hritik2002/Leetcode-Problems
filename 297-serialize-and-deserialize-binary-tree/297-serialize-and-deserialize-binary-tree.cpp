@@ -33,12 +33,12 @@ public:
         }
         
         string str = "";
-        while(data[index] != '#' && data[index] != ',') {
+        while(data[index] != ',') {
             str += data[index++];
         }
-        if(data[index] == '#')
-            index += 2;
-        else index++;
+        
+        index++;
+        
         if(index >= size) {
             return NULL;
         }
