@@ -40,12 +40,8 @@ public:
             }
             
             for(auto row : rowNodes) {
-                if(row.second.size() > 1) {
-                    for(auto val : row.second) {
-                        verticalLevelNodes[row.first].push_back(val);
-                    }
-                }else {
-                    verticalLevelNodes[row.first].push_back(row.second[0]);
+                for(auto val : row.second) {
+                    verticalLevelNodes[row.first].push_back(val);
                 }
             }
             
