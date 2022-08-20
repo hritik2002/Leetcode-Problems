@@ -53,6 +53,7 @@ public:
             return;
         }
         if(k == 0) {
+            st.insert(root);
             res.push_back(root->val);
             
             return;
