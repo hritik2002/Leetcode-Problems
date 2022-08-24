@@ -39,38 +39,6 @@ public:
         return search(word.c_str(), node);
     }
     
-    bool searchWord(string word, TrieNode* node, int index) {
-        if(index == word.size()) {
-            if(node && node->is_word) {
-                return true;
-            }
-            return false;
-        }
-        if(node == NULL) {
-            return false;
-        }
-
-        if(word[index] == '.') {
-            for(auto x : node->children) {
-                
-                if(x != NULL) {
-                    bool child = searchWord(word, x, index + 1);
-                    
-                    if(child) {
-                        return true;
-                    }
-                } 
-            }
-        }else {
-            bool child = searchWord(word, node->children[word[index] - 'a'], index + 1);
-                    
-            if(child) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
     bool search(const char* word, TrieNode* node) {
         for (int i = 0; word[i] && node; i++) {
             if (word[i] != '.') {
