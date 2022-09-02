@@ -2,9 +2,11 @@ class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
         unordered_map<string, int> hashmap;
+        
         for(string& word : words) {
             hashmap[word] += 1;
         }
+        
         priority_queue<pair<int, string>, vector<pair<int, string>>, MyComp> pq;
         
         for(auto it = hashmap.begin(); it != hashmap.end(); ++it) {
