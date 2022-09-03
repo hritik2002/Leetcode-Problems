@@ -25,7 +25,8 @@ public:
         
         while(!q.empty())
         {
-            ans.push_back({q.top().second.first, q.top().second.second});
+            auto top = q.top();
+            ans.push_back({top.second.first, top.second.second});
             q.pop();
         }
         
