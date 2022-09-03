@@ -37,10 +37,7 @@ public:
             if(maxHeap.top().first > 1)
                 return "";
             else ans += maxHeap.top().second;
-            
         }
-        
-        // cout<<ans<<endl;
         
         return ans;
     }
