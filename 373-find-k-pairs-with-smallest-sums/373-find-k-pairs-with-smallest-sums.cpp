@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-        priority_queue<pair<int , pair<int , int>> , vector<pair<int , pair<int , int>>>>q;   // to store the pair of sum and pair of elemnts of nums1 and nums2
+        priority_queue<pair<int , pair<int , int>> >q;   // to store the pair of sum and pair of elemnts of nums1 and nums2
         
         long long int sum=0;
         
@@ -14,7 +14,7 @@ public:
             {
                 sum = n+m;
                 if(q.size() < k)q.push({sum , {n , m}});
-                else if(q.top().first > sum)
+                else if(sum < q.top().first)
                 {
                     q.pop();
                     q.push({sum , {n , m}});
