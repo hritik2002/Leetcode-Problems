@@ -23,16 +23,12 @@ public:
             }
         }
         
-        vector<int>temp;
-        
         while(!q.empty())
         {
-            temp.push_back(q.top().second.first);
-            temp.push_back(q.top().second.second);
-            ans.push_back(temp);
+            ans.push_back({q.top().second.first, q.top().second.second});
             q.pop();
-            temp.clear();
         }
+        
         reverse(ans.begin() , ans.end());
         return ans;
     }
