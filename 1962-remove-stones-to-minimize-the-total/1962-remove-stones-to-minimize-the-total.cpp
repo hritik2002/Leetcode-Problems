@@ -6,7 +6,13 @@ public:
         
         for(auto stone : piles) {
             sum += stone;
-            pq.push(stone);
+            
+            if(pq.size() < k*2)
+                pq.push(stone);
+            else if(stone > pq.top()) {
+                pq.pop();
+                pq.push(stone);
+            }
         }
         
         while(k--) {
