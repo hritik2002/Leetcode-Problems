@@ -18,8 +18,7 @@ public:
                     score++;
                 }else {
                     if(score == 0) {
-                        right--;
-                        continue;
+                        break;
                     }
                     power += tokens[right];
                     score--;
