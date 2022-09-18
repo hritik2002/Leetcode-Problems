@@ -9,7 +9,7 @@ public:
         {
             ndy=coordinates[i][1] - coordinates[0][1];  // new dy
             ndx=coordinates[i][0] - coordinates[0][0];  // new dx
-            if(ndx*dy != ndy*dx )
+            if(ndx*dy != ndy*dx )     //straight line: (x3 - x1)/ (y3 - y1) == (x2 - y1)/ (y2 - y1)
                 return false;
         }
         
