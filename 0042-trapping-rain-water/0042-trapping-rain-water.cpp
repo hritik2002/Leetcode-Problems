@@ -2,13 +2,12 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n = height.size();
-        vector<int> leftArr(n, 0), rightArr(n, 0);
+        vector<int> rightArr(n, 0);
         
         if(n == 0) {
             return 0;
         }
         
-        leftArr[0] = height[0];
         rightArr[n - 1] = height[n - 1];
         
         // right to left storing max height
@@ -17,11 +16,11 @@ public:
         }
         
         int trappedWater = 0;
+        int leftMax = 0;
         
-        trappedWater += min(leftArr[0], rightArr[0]) - height[0];
-        for(int i = 1; i < n; i++) {
-            leftArr[i] = max(leftArr[i - 1], height[i]);
-            trappedWater += min(leftArr[i], rightArr[i]) - height[i];
+        for(int i = 0; i < n; i++) {
+            leftMax = max(leftMax, height[i]);
+            trappedWater += min(leftMax, rightArr[i]) - height[i];
         }
         
         
