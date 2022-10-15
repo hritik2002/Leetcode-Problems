@@ -10,10 +10,6 @@ public:
         
         leftArr[0] = height[0];
         rightArr[n - 1] = height[n - 1];
-        // left to right storing max height
-        for(int i = 1; i < n; i++) {
-            leftArr[i] = max(leftArr[i - 1], height[i]);
-        }
         
         // right to left storing max height
         for(int i = n - 2; i >= 0; i--) {
@@ -22,9 +18,13 @@ public:
         
         int trappedWater = 0;
         
-        for(int i = 0; i < n; i++) {
+        trappedWater += min(leftArr[0], rightArr[0]) - height[0];
+        for(int i = 1; i < n; i++) {
+            leftArr[i] = max(leftArr[i - 1], height[i]);
             trappedWater += min(leftArr[i], rightArr[i]) - height[i];
         }
+        
+        
         
         return trappedWater;
     }
