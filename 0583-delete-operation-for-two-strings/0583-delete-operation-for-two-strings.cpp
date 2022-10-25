@@ -8,7 +8,7 @@ public:
         if(m <= 0) {
             return n;
         }
-        if(dp[n][m] != INT_MAX) {
+        if(dp[n][m] != -1) {
             return dp[n][m];
         }
 
@@ -23,7 +23,7 @@ public:
 
     int minDistance(string a, string b) {
         int n = a.length(), m = b.length();
-        dp.resize(n + 1, vector<int> (m + 1, INT_MAX));
+        dp.resize(n + 1, vector<int> (m + 1, -1));
         dp[0][0] = 0;
 
         dp[n][m] = getDistance(a, b, n, m);
