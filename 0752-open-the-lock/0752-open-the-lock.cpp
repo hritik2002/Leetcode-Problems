@@ -22,34 +22,21 @@ public:
             }
             
             for(int i = 0; i < 4; i++) {
-                if(s[i] == '9') {
-                    s[i] = '0';
-                }else 
-                    s[i]++;
+                int c = s[i] - '0';
+                s[i] = (c + 1) % 10 + '0';
                 
                 if(!st.count(s)) {
                     q.push({s, p.second + 1});
                     st.insert(s);
                 }
-                if(s[i] == '0') {
-                    s[i] = '9';
-                }else
-                    s[i]--;
-            }
-            for(int i = 0; i < 4; i++) {
-                if(s[i] == '0') {
-                    s[i] = '9';
-                }else
-                    s[i]--;
                 
+                s[i] = (c - 1 + 10) % 10 + '0';
                 if(!st.count(s)) {
                     q.push({s, p.second + 1});
                     st.insert(s);
                 }
-                if(s[i] == '9') {
-                    s[i] = '0';
-                }else
-                    s[i]++;
+                
+                s[i] = c + '0';
             }
         }
         
