@@ -2,11 +2,11 @@ class Solution {
 public:
     int dp[32][32];
     bool solve(string s, string p, int i, int j, int n, int m) {
-        if(j == m) {
-            return i == n;
-        }
         if(dp[i][j] != -1) {
             return dp[i][j];
+        }
+        if(j == m) {
+            return dp[i][j] = (i == n);
         }
         
         if(p[j + 1] == '*') {
