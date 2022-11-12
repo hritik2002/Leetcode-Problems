@@ -1,30 +1,22 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        if(p.length()==0){
-            return (s.length()==0);
-        }
-        vector<vector<bool>> dp(s.length()+1,vector<bool> (p.length()+1, false));
-        
-        dp[s.length()][p.length()] = true;
-        
-        for(int i = s.length(); i >= 0; i--) {
-            for(int j = p.length() - 1; j >= 0; j--) {
-                if(i==s.length())
-                    dp[i][j] = (p[j]=='*' && dp[i][j + 1]);
-                else if(i<s.length() &&  (p[j]==s[i] || p[j]=='?'))
-                {
-                   dp[i][j]=  dp[i+1][j+1];
-                }
-                else if(p[j]=='*')
-                {
-                    dp[i][j]= (dp[i][j + 1] || dp[i + 1][j]);
-                }
-                else
-                    dp[i][j]= false;
-                }
+        vector<vector<bool>> dp(s.size() + 1, vector(p.size() + 1, false));
+        dp[0][0] = true;
+        for (int j = 0; j < p.size() && p[j] == '*'; ++j) {
+            dp[0][j + 1] = true;
         }
         
-        return  dp[0][0];
+        for (int i = 1; i <= s.size(); ++i) {
+            for (int j = 1; j <= p.size(); ++j) {
+                if (p[j - 1] == '*') {
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+                } else {
+                    dp[i][j] = (s[i - 1] == p[j - 1] || p[j - 1] == '?') && dp[i - 1][j - 1];
+                }
+            }
+        }
+
+        return dp[s.size()][p.size()];
     }  
 };
