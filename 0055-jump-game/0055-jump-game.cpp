@@ -1,30 +1,32 @@
 class Solution {
 public:
-    vector<int> dp;
-    bool checkCanJump(vector<int> &nums, int i, int n) {
-        if(i >= n - 1) {
-            return true;
-        }
-        if(dp[i] != -1) {
-            return dp[i];
-        }
-        if(nums[i] >= n - 1) {
-            return true;
-        }
-        
-        int tmp = nums[i];
-        while(tmp) {
-            if(checkCanJump(nums, i + tmp--, n)) {
-                return dp[i] = true;
-            }
-        }
-        
-        return dp[i] = false;
-    }
+    vector<bool> dp;
     bool canJump(vector<int>& nums) {
         int n = nums.size();
-        dp.resize(n, -1);
+        dp.resize(n, false);
         
-        return checkCanJump(nums, 0, n);
+        for(int i = n - 1; i >= 0; i--) {
+            int tmp = nums[i];
+            if(tmp + i >= n - 1) {
+                dp[i] = true;
+                continue;
+            }
+            
+            bool flag = false;
+            while(tmp) {
+                if(dp[i + tmp]) {
+                    dp[i] = true;
+                    flag = true;
+                    break;
+                }
+                
+                tmp--;
+            }
+            
+            if(flag) continue;
+            dp[i] = false;
+        }
+        
+        return dp[0];
     }
 };
