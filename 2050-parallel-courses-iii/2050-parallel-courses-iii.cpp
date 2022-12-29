@@ -15,13 +15,6 @@ public:
     int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
         map<int, vector<int>> mp;
         dp.resize(time.size(), -1);
-        if(relations.size() == 0) {
-            int sum = 0;
-            for(auto t : time) 
-                sum = max(sum, t);
-            
-            return sum;
-        }
         
         for(int i = 1; i <= time.size(); i++) {
             mp[i] = {};
