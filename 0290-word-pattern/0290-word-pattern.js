@@ -20,9 +20,7 @@ var wordPattern = function(pattern, s) {
             word_to_letter[s[i]] = pattern[i];
             obj[pattern[i]] = s[i];
         }else {
-            if(word_to_letter[s[i]] != pattern[i]) {
-                return false;
-            }
+            
             if(obj[pattern[i]] != s[i]) {
                 return false;
             }
