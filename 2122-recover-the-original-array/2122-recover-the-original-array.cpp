@@ -11,9 +11,6 @@ public:
                 mp[nums[i]]--;
                 mp[nums[i] + diff]--;
             }else if(mp[nums[i]] && !mp[nums[i] + diff]) return {};
-            if(ans.size() > size / 2) {
-                return {};
-            }
         }
         
         return ans;
@@ -33,7 +30,6 @@ public:
                 continue;
             }
             auto ans = getRecoveredArray(nums, mp, diff);
-            cout<<ans.size()<<endl;
             if(ans.size() == size / 2) {
                 return ans;
             }
