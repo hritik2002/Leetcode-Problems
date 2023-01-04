@@ -1,55 +1,60 @@
 class disjoint_set {
-    vector<int> v;
-    int sz;
-public:
-    disjoint_set(int n) {
-        makeset(n);
-    }
-
-    void makeset(int n) {
-        v.resize(n);
-        iota(v.begin(), v.end(), 0);
-        sz = n;
-    }
-
-    int find(int i) {
-        if (i != v[i])
-            v[i] = find(v[i]);
-        return v[i];
-    }
+    public: 
+        vector<int> parent;
+        int size;
     
-    void join(int i, int j) {
-        int ri = find(i), rj = find(j);
-        if (ri != rj) {
-            v[ri] = rj;
-            sz--;
+        disjoint_set(int n) {
+            parent.resize(n);
+            iota(parent.begin(), parent.end(), 0);
+            size = n;
         }
-    }
-    
-    int size() {
-        return sz;
-    }
+        int find(int node) {
+            if(parent[node] != node) {
+                parent[node] = find(parent[node]);
+            }
+            
+            return parent[node];
+        }
+        void join(int i, int j) {
+            int xi = find(i), xj = find(j);
+            
+            if(xi != xj) {
+                parent[xi] = parent[xj];
+                size--;
+            }
+        }
+        int getSize() {
+            return this->size;
+        }
 };
-
-
 class Solution {
 public:
-    bool similar(string &a, string &b) {
-    int n = 0;
-    for (int i = 0; i < a.size(); i++)
-        if (a[i] != b[i] && ++n > 2)
-            return false;
-    return true;
-}
-
-int numSimilarGroups(vector<string>& A) {
-    disjoint_set ds(A.size());
-    for (int i = 0; i < A.size(); i++)
-        for (int j = i + 1; j < A.size(); j++)
-            if (similar(A[i], A[j]))
-                ds.join(i, j);
-    return ds.size();
-}
+    bool similar(string& A, string& B) {
+        int cnt = 0;
+        for(int i = 0; i < A.length(); i++) {
+            if(A[i] != B[i]) {
+                cnt++;
+            }
+            if(cnt > 2) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    int numSimilarGroups(vector<string>& A) {
+        disjoint_set ds(A.size());
+        
+        for(int i = 0; i < A.size(); i++) {
+            for(int j = i + 1; j < A.size(); j++) {
+                if(similar(A[i], A[j])) {
+                    ds.join(i, j);
+                }
+            }
+        }
+        
+        return ds.getSize();
+    }
 
 };
 
