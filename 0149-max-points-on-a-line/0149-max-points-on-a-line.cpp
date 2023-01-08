@@ -5,7 +5,7 @@ public:
         int n = points.size();
         
         for(int i = 0; i < n; i++) {
-            map<string, int> mp;
+            unordered_map<string, int> mp;
             int dup = 1;
             
             for(int j = i + 1; j < n; j++) {
