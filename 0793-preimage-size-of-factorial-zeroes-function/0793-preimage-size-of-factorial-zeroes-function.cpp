@@ -13,9 +13,10 @@ public:
         reverse(arr.begin(), arr.end());
         
         for(auto i : arr) {
-            k %= i + 1;
+            k = k % (i + 1);
             if(k == i) {
                 ans = 0;
+                break;
             }
         }  
         
