@@ -1,25 +1,24 @@
 class Solution {
 public:
     vector<int> dp;
-    int stepsToReach(vector<int> &nums, int index) {
-        if(index >= nums.size() - 1) {
+    int dfs(vector<int>& nums, int ind) {
+        if(ind >= nums.size() - 1) {
             return 0;
         }
-        if(dp[index] != -1) {
-            return dp[index];
-        }
-        int steps = nums[index];
-        int ans = INT_MAX;
-        while(steps) {
-            ans = min(ans, stepsToReach(nums, index + steps)); // take
-            steps--;
+        if(dp[ind] != -1) {
+            return dp[ind];
         }
         
-        return dp[index] = ans == INT_MAX ? INT_MAX : ans + 1;
+        int ans = INT_MAX;
+        
+        for(int i = nums[ind]; i > 0; i--) {
+            ans = min(ans, dfs(nums, ind + i));
+        }
+        
+        return dp[ind] = ans == INT_MAX ? ans : ans + 1;
     }
     int jump(vector<int>& nums) {
-        dp.resize(nums.size(), -1);
-        
-        return stepsToReach(nums, 0);
+        dp.resize(nums.size() + 1, -1);
+        return dfs(nums, 0);
     }
 };
