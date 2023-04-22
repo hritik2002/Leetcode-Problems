@@ -8,13 +8,13 @@ public:
         if(dp[ind] != -1) {
             return dp[ind];
         }
-        
+            
         int ans = INT_MAX;
-        
+            
         for(int i = nums[ind]; i > 0; i--) {
             ans = min(ans, dfs(nums, ind + i));
         }
-        
+            
         return dp[ind] = ans == INT_MAX ? ans : ans + 1;
     }
     int jump(vector<int>& nums) {
