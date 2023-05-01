@@ -1,32 +1,15 @@
 class Solution {
 public:
-    vector<bool> dp;
     bool canJump(vector<int>& nums) {
         int n = nums.size();
-        dp.resize(n, false);
+        int lastIndex = n - 1;
         
-        for(int i = n - 1; i >= 0; i--) {
-            int tmp = nums[i];
-            if(tmp + i >= n - 1) {
-                dp[i] = true;
-                continue;
+        for(int i = n - 2; i >= 0; i--) {
+            if(i + nums[i] >= lastIndex) {
+                lastIndex = i;
             }
-            
-            bool flag = false;
-            while(tmp) {
-                if(dp[i + tmp]) {
-                    dp[i] = true;
-                    flag = true;
-                    break;
-                }
-                
-                tmp--;
-            }
-            
-            if(flag) continue;
-            dp[i] = false;
         }
         
-        return dp[0];
+        return lastIndex == 0;
     }
 };
