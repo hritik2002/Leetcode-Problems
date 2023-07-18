@@ -1,84 +1,73 @@
-// class for doubly linkedlist
-class node{
-    public:
-        int key;
-        int value;
-        node* prev;
-        node* next;
-    
-        node(int key, int value) {
-            this->key = key;
-            this->value = value;
-        }
-};
-
 class LRUCache {
 public:
-    map<int, node*> map;
+    class node{
+        public:
+            int key;
+            int val;
+            node* prev;
+            node* next;
+            node(int key, int val){
+                this->key = key;
+                this->val = val;
+            }
+    };
+    
+    node* head = new node(-1,-1);
+    node* tail = new node(-1,-1);
     int capacity;
-    node* head;
-    node* tail;
+    vector<node*> map;
+    int size;
     
     LRUCache(int capacity) {
         this->capacity = capacity;
-        head = new node(-1, -1);
-        tail = new node(-1, -1);
         head->next = tail;
         tail->prev = head;
+        size = 0;
+        this->map.resize(10001, NULL);
+    }
+    
+    void deleteNode(node* curNode){
+        node* prev = curNode->prev;
+        node* next = curNode->next;
+
+        prev->next = next;
+        next->prev = prev;
+    }
+    
+    void addNode(node* curNode){
+        curNode->next = head->next;
+        curNode->prev = head;
+        curNode->next->prev = curNode;
+        head->next = curNode;
     }
     
     int get(int key) {
-        if(map.find(key) == map.end()) {
-            return -1;
-        }
+        if(this->map[key] == NULL) return -1;
         
-        node* currNode = map[key];
-        int res = currNode->value;
-        // delete the node and add that node in the front
-        deleteFromBack(currNode);
-        addToFront(currNode);
-        // update the map
-        map[key] = currNode;
+        node* curNode = this->map[key];
+        int result = curNode->val;
+        this->map[key] = NULL;
+        deleteNode(curNode);
+        addNode(curNode);
+        this->map[key] = head->next;
         
-        return res;
-    }
-    
-    // add to the front node sequence
-    void addToFront(node* tmpNode) {
-        this->head->next->prev = tmpNode;
-        tmpNode->next = this->head->next;
-        this->head->next = tmpNode;
-        tmpNode->prev = this->head;
-    }
-    // delete the given node
-    void deleteFromBack(node* currNode) {
-        node* tmp = currNode->prev;
-        tmp->next = currNode->next;
-        currNode->next->prev = tmp;
+        return result;
     }
     
     void put(int key, int value) {
-        if(map.find(key) != map.end()) {
-            // delete the node with old value
-            deleteFromBack(map[key]);
-            map.erase(key);
+        if(this->map[key]){
+            node* curNode = this->map[key];
+            this->map[key] = NULL;
+            deleteNode(curNode);
+            size--;
         }
-        if(map.size() == this->capacity) {
-            // delete the least recent used node
-            map.erase(this->tail->prev->key);
-            deleteFromBack(this->tail->prev);
+        if(size == capacity){
+            this->map[tail->prev->key] = NULL;
+            size--;
+            deleteNode(tail->prev);
         }
-        
-        // add a node with the new value
-        addToFront(new node(key, value));
-        // update the map
-        map[key] = head->next;
+        addNode(new node(key,value));
+        this->map[key] = head->next;
+        size++;
     }
 };
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
